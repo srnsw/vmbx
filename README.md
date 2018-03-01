@@ -1,12 +1,16 @@
-# HP TRIM VMBX Email tool
+# HP TRIM VMBX Email Format
 
-This is a golang library and command line tool for extracting attachments from, and converting to EML, HP TRIM VMBX email files.
+This is a library and command line tool for working with HP TRIM VMBX email files. You can use this tool for extracting attachments and converting VMBX files to EML.
 
 ## Install
 
-	go get -o vmbx.exe github.com/srnsw/vmbx/cmd
+From source:
 
-To use the mail conversion function you also need to install a siegfried signature file on your computer (normally in a "siegfried" folder within your home directory). See github.com/richardlehane/siegfried for more information.
+	go get github.com/srnsw/vmbx/cmd
+
+Or get a precompiled Windows 64-bit binary from the [releases page](/releases).
+
+To use the mail conversion function you also need to install a siegfried signature file on your computer (normally in a "siegfried" folder within your home directory). See [siegfried](https://github.com/richardlehane/siegfried) for more information.
 
 ## Usage
 
@@ -14,7 +18,7 @@ To extract attachments from a VMBX file, or set of files:
 
 	vmbx -dump FILE or DIR
 
-To convert a VMBX file, or set of files, to multipart-MIME encoded EML format, do:
+To convert a VMBX file, or set of files, to EML format, do:
 
 	vmbx -mail FILE or DIR
 
