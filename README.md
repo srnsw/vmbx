@@ -8,7 +8,7 @@ From source:
 
 	go get github.com/srnsw/vmbx/cmd
 
-Or get a precompiled Windows 64-bit binary from the [releases page](/releases).
+Or get a precompiled Windows 64-bit binary from the [releases page](https://github.com/srnsw/vmbx/releases).
 
 To use the mail conversion function you also need to install a siegfried signature file on your computer (normally in a "siegfried" folder within your home directory). See [siegfried](https://github.com/richardlehane/siegfried) for more information.
 
