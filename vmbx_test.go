@@ -18,8 +18,19 @@ import (
 	"bytes"
 	"io/ioutil"
 	"os"
+	"os/user"
+	"path/filepath"
 	"testing"
 )
+
+var sfLoc string
+
+func init() {
+	usr, err := user.Current()
+	if err == nil {
+		sfLoc = filepath.Join(usr.HomeDir, "siegfried", "default.sig")
+	}
+}
 
 func TestNew(t *testing.T) {
 	if _, err := os.Stat("test.vmbx"); err != nil {
@@ -63,9 +74,28 @@ func TestMail(t *testing.T) {
 		t.Fatalf("failed to parse vmbx file got %v", err)
 	}
 	buf := &bytes.Buffer{}
-	err = v.Mail(buf)
+	err = v.Mail(buf, sfLoc)
 	if err != nil {
 		t.Fatalf("failed to write mail message, got %v", err)
 	}
-	t.Fatalf("This is the output:\n%s", string(buf.Bytes()))
+}
+
+func TestEmpty(t *testing.T) {
+	if _, err := os.Stat("test_empty.vmbx"); err != nil {
+		return
+	}
+	f, err := os.Open("test_empty.vmbx")
+	defer f.Close()
+	if err != nil {
+		t.Fatalf("failed to open test file got %v", err)
+	}
+	v, err := New(f)
+	if err != nil {
+		t.Fatalf("failed to parse vmbx file got %v", err)
+	}
+	buf := &bytes.Buffer{}
+	err = v.Mail(buf, sfLoc)
+	if err != nil {
+		t.Fatalf("failed to write mail message, got %v", err)
+	}
 }

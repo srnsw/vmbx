@@ -60,14 +60,12 @@ func main() {
 		}
 		if strings.ToUpper(filepath.Ext(path)) == ".VMBX" {
 			if *dflag {
-				err = dump(path)
-				if err != nil {
+				if err = dump(path); err != nil {
 					return fmt.Errorf("Error dumping %s, got: %v", path, err)
 				}
 			}
 			if *mflag {
-				err = mail(path)
-				if err != nil {
+				if err = mail(path); err != nil {
 					return fmt.Errorf("Error converting %s to EML, got: %v", path, err)
 				}
 			}

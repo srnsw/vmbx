@@ -130,7 +130,7 @@ func New(r io.ReadSeeker) (*VMBX, error) {
 	}
 	for scanner.Scan() {
 		if scanner.Text() == "" {
-			return v, nil
+			break
 		}
 		kv := strings.SplitN(scanner.Text(), ":", 2)
 		if len(kv) != 2 {
@@ -139,5 +139,8 @@ func New(r io.ReadSeeker) (*VMBX, error) {
 		v.Headers[kv[0]] = append(v.Headers[kv[0]], kv[1])
 		v.Keys = append(v.Keys, kv[0])
 	}
-	return nil, errors.New("vmbx: Unable to parse as VMBX file")
+	if len(v.Keys) > 0 {
+		return v, nil
+	}
+	return nil, errors.New("vmbx: not a vmbx file")
 }
